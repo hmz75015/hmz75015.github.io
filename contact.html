@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Portfolio de Hamza MENDIL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="stages.html">Stages</a></li>
+                <li><a href="projects.html">Projets</a></li>
+                <li><a href="skills.html">Compétences</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="contact">
+            <h1>Contactez-moi</h1>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Informations de Contact</h3>
+                    <p><i class="fas fa-envelope"></i> hamza.mendil@etudiant.fr</p>
+                    <p><i class="fas fa-user"></i> Hamza MENDIL</p>
+                    <p><i class="fas fa-graduation-cap"></i> BTS SIO SISR - 2ème année</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Paris, France</p>
+                    
+                    <div class="social-links">
+                        <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Nom</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+
+                    <button type="submit">Envoyer le message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>        <p>&copy; 2025 Portfolio Hamza MENDIL</p></p>
+    </footer>
+</body>
+</html>
