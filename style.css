@@ -19,8 +19,22 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
     overflow: hidden;
-    max-width: 30%;
+    flex: 1;
+    width: 400px;
+    min-width: 400px;
+    max-width: 400px;
     font-size: 0.9rem;
+    height: 100%;
+}
+
+.project-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-features {
+    margin-top: auto;
 }   color: #2c3e50;
     background-color: #f8f9fa;
     min-height: 100vh;
@@ -265,11 +279,80 @@ h3 {
 }
 
 /* Projects Section */
+.year-title {
+    text-align: center;
+    color: #666;
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+}
+
+.project-carousel {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
 .project-grid {
     display: flex;
     gap: 2rem;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+.carousel-button {
+    display: none; /* Cache les boutons par défaut */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: #3498db;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+/* On montre le bouton suivant uniquement s'il y a du contenu à droite */
+.project-grid:not([data-at-end="true"]) ~ .next-button {
+    display: block;
+}
+
+/* On montre le bouton précédent uniquement s'il y a du contenu à gauche */
+.project-grid:not([data-at-start="true"]) ~ .prev-button {
+    display: block;
+}
+
+.carousel-button:hover {
+    background: #2980b9;
+}
+
+.prev-button {
+    left: -10px;
+}
+
+.next-button {
+    right: -10px;
+}
+
+.project-card.coming-soon {
+    text-align: center;
+    padding: 3rem 2rem;
+}
+
+.project-card.coming-soon h3 {
+    color: #3498db;
+    margin-bottom: 1rem;
+}
+
+.project-card.coming-soon p {
+    color: #666;
+    font-size: 0.9rem;
 }
 
 /* Carte de projet */
@@ -280,7 +363,57 @@ h3 {
     padding: 1.5rem;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
-    overflow: hidden;
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card h2 {
+    margin-bottom: 1rem;
+    color: #2c3e50;
+}
+
+.project-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.project-content p {
+    margin-bottom: 1rem;
+    color: #666;
+}
+
+.project-content ul {
+    list-style-type: disc;
+    padding-left: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.project-content li {
+    margin-bottom: 0.5rem;
+    color: #666;
+}
+
+.project-features {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.project-features h3 {
+    color: #2c3e50;
+    margin-bottom: 0.8rem;
+}
+
+.project-features ul {
+    margin-bottom: 0;
+}
+
+.project-content h3 {
+    color: #3498db;
+    margin-top: 1rem;
+    margin-bottom: 0.8rem;
 }
 
 .project-card:hover {
