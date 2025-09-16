@@ -11,8 +11,17 @@ html {
 
 body {
     font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
-    color: #2c3e50;
+    line-heigh.project-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    padding: 1.2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    overflow: hidden;
+    max-width: 30%;
+    font-size: 0.9rem;
+}   color: #2c3e50;
     background-color: #f8f9fa;
     min-height: 100vh;
     overflow-x: hidden;
@@ -257,9 +266,10 @@ h3 {
 
 /* Projects Section */
 .project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    display: flex;
     gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: flex-start;
 }
 
 /* Carte de projet */
@@ -297,6 +307,33 @@ h3 {
 
 .project-card:hover .project-image img {
     transform: scale(1.05);
+}
+
+.project-content {
+    padding: 1rem 0;
+}
+
+.project-content h3 {
+    color: #3498db;
+    margin-top: 1.5rem;
+    font-size: 1.2rem;
+}
+
+.project-content ul {
+    list-style-position: inside;
+    margin: 1rem 0;
+    padding-left: 1rem;
+}
+
+.project-content ul li {
+    margin-bottom: 0.5rem;
+    color: #666;
+}
+
+.project-features {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eee;
 }
 
 .tech-tag {
@@ -463,6 +500,122 @@ button:hover {
 
 button:hover::before {
     left: 100%;
+}
+
+/* Certifications */
+.certifications {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.certification-intro {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.certification-grid {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.certification-card {
+    background: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 500px;
+}
+
+.certification-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.certification-card h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.certification-source {
+    color: #3498db;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.certification-description {
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.certification-progress {
+    margin: 1.5rem 0;
+}
+
+.certification-progress .progress-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    color: #666;
+}
+
+.certification-progress .progress-value {
+    color: #3498db;
+    font-weight: 600;
+    text-align: right;
+    margin-top: 0.5rem;
+}
+
+.view-certificate {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 1rem;
+    transition: gap 0.3s ease;
+}
+
+.view-certificate:hover {
+    gap: 1rem;
+}
+
+.view-certificate .arrow {
+    transition: transform 0.3s ease;
+}
+
+.view-certificate:hover .arrow {
+    transform: translateX(5px);
+}
+
+/* Veille Technologique - Coming Soon */
+.coming-soon {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 2rem auto;
+    max-width: 800px;
+}
+
+.coming-soon h2 {
+    color: #3498db;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+}
+
+.coming-soon p {
+    color: #666;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
 }
 
 /* Footer */
