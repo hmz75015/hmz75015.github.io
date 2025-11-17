@@ -751,6 +751,78 @@ button:hover::before {
     margin-bottom: 1rem;
 }
 
+/* Section Veille */
+.veille-intro {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+    border-radius: 12px;
+    color: white;
+}
+
+.veille-intro h2 {
+    color: white;
+    font-size: 2.2rem;
+    margin-bottom: 0.8rem;
+}
+
+.subtitle-veille {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Document Card */
+.document-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.document-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+.card-header {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    color: white;
+    padding: 2rem;
+    text-align: center;
+}
+
+.card-header h3 {
+    color: white;
+    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+}
+
+.card-meta {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+}
+
+.card-content {
+    padding: 2rem;
+    text-align: center;
+}
+
+.card-content p {
+    color: #666;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+
+.document-download {
+    margin: 2rem 0;
+    text-align: center;
+}
+
 /* Footer */
 /* Pied de page */
 footer {
