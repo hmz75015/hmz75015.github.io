@@ -182,14 +182,14 @@ html::-webkit-scrollbar-thumb {
 /* -------------------------------------------------------------------------------------------------------------------------------------------------------- */
 
 section{
-    min-height: 100vh;
-    padding: 10rem 9% 2rem;
+    padding: 30rem 9% 18rem;
 }
 
 .home {
+    min-height: 100vh;
     display: flex;
     align-items: center;
-    padding: 10 9%;
+    padding: 10rem 9% 6rem;
     background: var(--bg-color);
     position: relative;
     overflow: hidden;
@@ -362,7 +362,6 @@ section{
     align-items: center;
     flex-direction: column;
     gap: 5rem;
-    padding-bottom: 6rem;
     position: relative;
     overflow: hidden;
 }
@@ -420,7 +419,6 @@ section{
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding-bottom: 6rem;
     width: 100%;
     box-sizing: border-box;
 }
@@ -547,7 +545,6 @@ section{
     background: var(--bg-color);
     width: 100%;
     font-size: 1.6rem;
-    padding-bottom: 6rem;
 }
 
 /* Ajout de texte d'introduction pour les compétences */
@@ -725,6 +722,16 @@ section{
     -webkit-text-fill-color: transparent;
 }
 
+/* Certification skill-box : flexbox colonne pour aligner les boutons en bas */
+.certifications .skill-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.certifications .skill-box .btn {
+    align-self: flex-start;
+}
+
 /* Style pour les H4 dans les certifications */
 .skill-box h4 {
     font-size: 2rem;
@@ -808,7 +815,6 @@ section{
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding-bottom: 6rem;
     width: 100%;
     box-sizing: border-box;
 }
@@ -934,7 +940,6 @@ section{
 .projet {
     background: var(--bg-color);
     font-size: 1.6rem;
-    padding-bottom: 6rem;
 }
 
 /* Ajout de texte d'introduction pour les projets */
@@ -1062,7 +1067,6 @@ section{
 /* Section Veille Technologique */
 .veille {
     background: var(--bg-color);
-    padding: 10rem 9% 6rem;
     text-align: center;
 }
 
