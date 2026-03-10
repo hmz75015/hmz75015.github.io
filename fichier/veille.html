@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veille Technologique - Hamza MENDIL</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1a1a2e;
+            line-height: 1.7;
+            background: #fff;
+            font-size: 11pt;
+        }
+
+        /* ===== PRINT SETTINGS ===== */
+        @media print {
+            body { font-size: 10pt; }
+            .page-break { page-break-before: always; }
+            .no-break { page-break-inside: avoid; }
+            @page { margin: 1.5cm 2cm; size: A4; }
+            .cover-page { page-break-after: always; }
+            a { color: #0066cc !important; text-decoration: underline !important; }
+        }
+
+        /* ===== COVER PAGE ===== */
+        .cover-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #0a0a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #fff;
+            padding: 60px 40px;
+            position: relative;
+        }
+
+        .cover-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 40%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 60%, rgba(108, 92, 231, 0.08) 0%, transparent 50%);
+        }
+
+        .cover-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cover-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 8px 24px;
+            border-radius: 30px;
+            font-size: 0.85em;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+        }
+
+        .cover-title {
+            font-size: 2.4em;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            max-width: 700px;
+        }
+
+        .cover-subtitle {
+            font-size: 1.3em;
+            font-weight: 300;
+            color: #00d4ff;
+            margin-bottom: 50px;
+            max-width: 600px;
+        }
+
+        .cover-line {
+            width: 80px;
+            height: 3px;
+            background: #00d4ff;
+            margin: 0 auto 50px;
+        }
+
+        .cover-info {
+            font-size: 0.95em;
+            line-height: 2;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .cover-info strong {
+            color: #fff;
+        }
+
+        /* ===== CONTENT PAGES ===== */
+        .content-page {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 50px;
+        }
+
+        /* ===== HEADINGS ===== */
+        h1 {
+            font-size: 1.8em;
+            font-weight: 800;
+            color: #0a0a2e;
+            margin-bottom: 25px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #0f3460;
+            position: relative;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: #00d4ff;
+        }
+
+        h2 {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #0f3460;
+            margin: 30px 0 15px;
+        }
+
+        h3 {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #16213e;
+            margin: 20px 0 10px;
+        }
+
+        p {
+            margin-bottom: 12px;
+            text-align: justify;
+        }
+
+        /* ===== TABLE OF CONTENTS ===== */
+        .toc {
+            list-style: none;
+            padding: 0;
+        }
+
+        .toc li {
+            padding: 10px 0;
+            border-bottom: 1px dotted #ccc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1em;
+        }
+
+        .toc li span.toc-num {
+            font-weight: 700;
+            color: #0f3460;
+            margin-right: 12px;
+            min-width: 25px;
+        }
+
+        .toc li span.toc-page {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        /* ===== TOOLS GRID ===== */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .tool-card {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 18px;
+            border-left: 4px solid #0f3460;
+        }
+
+        .tool-card h4 {
+            font-size: 0.95em;
+            font-weight: 700;
+            color: #0f3460;
+            margin-bottom: 5px;
+        }
+
+        .tool-card p {
+            font-size: 0.85em;
+            color: #555;
+            margin-bottom: 0;
+        }
+
+        /* ===== ARTICLES TABLE ===== */
+        .articles-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.85em;
+        }
+
+        .articles-table thead {
+            background: #0f3460;
+            color: #fff;
+        }
+
+        .articles-table th {
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .articles-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e9ecef;
+            vertical-align: top;
+        }
+
+        .articles-table tbody tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .articles-table a {
+            color: #0066cc;
+            text-decoration: none;
+            word-break: break-all;
+            font-size: 0.85em;
+        }
+
+        /* ===== ARTICLE ANALYSIS ===== */
+        .article-analysis {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px 30px;
+            margin: 25px 0;
+            border-left: 4px solid #0f3460;
+        }
+
+        .article-analysis .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 0.85em;
+            color: #666;
+        }
+
+        .article-analysis .article-meta .date {
+            background: #0f3460;
+            color: #fff;
+            padding: 3px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+        }
+
+        .article-analysis .article-meta .source {
+            font-style: italic;
+        }
+
+        .article-analysis h3 {
+            color: #0a0a2e;
+            font-size: 1.1em;
+            margin: 0 0 12px;
+        }
+
+        .article-analysis .keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 12px 0;
+        }
+
+        .article-analysis .keywords span {
+            background: #e8edf5;
+            color: #0f3460;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.78em;
+            font-weight: 500;
+        }
+
+        .key-points {
+            margin: 15px 0;
+        }
+
+        .key-points h4 {
+            font-size: 0.9em;
+            font-weight: 700;
+            color: #0f3460;
+            margin-bottom: 8px;
+        }
+
+        .key-points ul {
+            padding-left: 20px;
+        }
+
+        .key-points li {
+            margin-bottom: 5px;
+            font-size: 0.92em;
+        }
+
+        .article-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: #0066cc;
+            font-size: 0.88em;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .article-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== SYNTHESIS BOX ===== */
+        .synthesis-box {
+            background: linear-gradient(135deg, #0a0a2e, #16213e);
+            color: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 25px 0;
+        }
+
+        .synthesis-box h2 {
+            color: #00d4ff;
+            margin-top: 0;
+        }
+
+        .synthesis-box p {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .synthesis-box ul {
+            padding-left: 20px;
+            color: rgba(255,255,255,0.85);
+        }
+
+        .synthesis-box li {
+            margin-bottom: 8px;
+        }
+
+        /* ===== SOURCES LIST ===== */
+        .sources-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sources-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9em;
+        }
+
+        .sources-list li a {
+            color: #0066cc;
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        /* ===== MISC ===== */
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .info-box {
+            background: #e8f4fd;
+            border-left: 4px solid #0099ff;
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+            font-size: 0.92em;
+        }
+
+        .schema-box {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .schema-box .schema-title {
+            font-weight: 700;
+            color: #0f3460;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .schema-arrows {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .schema-step {
+            background: #0f3460;
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+
+        .schema-arrow {
+            color: #00d4ff;
+            font-size: 1.3em;
+            font-weight: 800;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== PAGE DE GARDE ===== -->
+<div class="cover-page">
+    <div class="cover-content">
+        <div class="cover-badge">BTS SIO &mdash; Option SISR</div>
+        <h1 class="cover-title">Veille Technologique</h1>
+        <div class="cover-line"></div>
+        <p class="cover-subtitle">L'Intelligence Artificielle et ses Dérives sur les Métiers de l'Informatique</p>
+        <div class="cover-info">
+            <strong>Hamza MENDIL</strong><br>
+            BTS SIO SISR — Lycée Turgot, Paris<br>
+            Année scolaire 2025 – 2026<br>
+            <br>
+            Mars 2026
+        </div>
+    </div>
+</div>
+
+<!-- ===== SOMMAIRE ===== -->
+<div class="content-page page-break">
+    <h1>Sommaire</h1>
+    <ul class="toc">
+        <li><span class="toc-num">1.</span> Introduction <span class="toc-page"></span></li>
+        <li><span class="toc-num">2.</span> Qu'est-ce que la veille technologique ? <span class="toc-page"></span></li>
+        <li><span class="toc-num">3.</span> Présentation du sujet de veille <span class="toc-page"></span></li>
+        <li><span class="toc-num">4.</span> Outils de veille utilisés <span class="toc-page"></span></li>
+        <li><span class="toc-num">5.</span> Tableau récapitulatif des articles <span class="toc-page"></span></li>
+        <li><span class="toc-num">6.</span> Analyse des articles sélectionnés <span class="toc-page"></span></li>
+        <li><span class="toc-num">7.</span> Synthèse et conclusion <span class="toc-page"></span></li>
+        <li><span class="toc-num">8.</span> Sources <span class="toc-page"></span></li>
+    </ul>
+</div>
+
+<!-- ===== 1. INTRODUCTION ===== -->
+<div class="content-page page-break">
+    <h1>1. Introduction</h1>
+    <p>
+        Dans le cadre de ma formation en <strong>BTS SIO option SISR</strong> (Solutions d'Infrastructure, Systèmes et Réseaux), 
+        il m'est demandé de réaliser une veille technologique continue sur un sujet en lien avec le domaine informatique. 
+        Cette démarche, inscrite dans le référentiel du BTS SIO, permet de développer une aptitude essentielle pour tout professionnel de l'IT : 
+        la capacité à se tenir informé des évolutions technologiques, des tendances du marché et des enjeux qui transforment notre secteur.
+    </p>
+    <p>
+        J'ai choisi de concentrer ma veille sur un sujet d'actualité majeur : <strong>l'intelligence artificielle et ses dérives sur les métiers 
+        de l'informatique</strong>. Ce thème me concerne directement en tant que futur professionnel de l'infrastructure et des réseaux, 
+        puisque l'IA redessine aujourd'hui les contours de nombreux métiers IT, modifiant les compétences attendues, 
+        les méthodes de travail et même la pérennité de certains postes.
+    </p>
+    <p>
+        Ce document présente ma démarche de veille, les outils que j'ai utilisés, un panorama des articles collectés 
+        depuis décembre 2025, ainsi qu'une analyse approfondie des cinq articles les plus significatifs. 
+        Il se conclut par une synthèse de mes observations et ma réflexion personnelle sur l'avenir des métiers de l'informatique 
+        face à la montée en puissance de l'IA.
+    </p>
+</div>
+
+<!-- ===== 2. QU'EST-CE QUE LA VEILLE TECHNOLOGIQUE ? ===== -->
+<div class="content-page page-break">
+    <h1>2. Qu'est-ce que la veille technologique ?</h1>
+    <p>
+        La <strong>veille technologique</strong> est un processus continu et systématique de collecte, d'analyse et de diffusion 
+        d'informations relatives aux évolutions technologiques, aux innovations et aux tendances d'un domaine donné. 
+        Elle permet aux professionnels et aux organisations de rester compétitifs en anticipant les changements et en adaptant 
+        leurs stratégies en conséquence.
+    </p>
+
+    <div class="info-box">
+        <strong>Définition officielle (AFNOR) :</strong> « La veille technologique est l'observation et l'analyse de l'environnement 
+        scientifique, technique, technologique et économique de l'entreprise pour en déduire les menaces et les opportunités de développement. »
+    </div>
+
+    <h2>Pourquoi faire de la veille en BTS SIO ?</h2>
+    <p>
+        Dans le référentiel du BTS SIO, la veille technologique fait partie intégrante du bloc de compétences. 
+        Elle répond à plusieurs objectifs :
+    </p>
+    <ul>
+        <li><strong>Se tenir informé</strong> des dernières innovations et des nouvelles menaces en cybersécurité</li>
+        <li><strong>Anticiper les évolutions</strong> technologiques qui impactent les infrastructures et les systèmes</li>
+        <li><strong>Développer un esprit critique</strong> face à l'information technique</li>
+        <li><strong>Alimenter sa culture professionnelle</strong> pour évoluer dans un secteur en constante mutation</li>
+    </ul>
+
+    <h2>Les étapes de la veille</h2>
+    <div class="schema-box">
+        <div class="schema-title">Processus de veille technologique</div>
+        <div class="schema-arrows">
+            <div class="schema-step">1. Identifier<br><small>les sources</small></div>
+            <div class="schema-arrow">→</div>
+            <div class="schema-step">2. Collecter<br><small>l'information</small></div>
+            <div class="schema-arrow">→</div>
+            <div class="schema-step">3. Analyser<br><small>et trier</small></div>
+            <div class="schema-arrow">→</div>
+            <div class="schema-step">4. Diffuser<br><small>et exploiter</small></div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== 3. PRÉSENTATION DU SUJET ===== -->
+<div class="content-page page-break">
+    <h1>3. Présentation du sujet de veille</h1>
+
+    <h2>L'Intelligence Artificielle et ses Dérives sur les Métiers de l'Informatique</h2>
+
+    <p>
+        L'intelligence artificielle (IA) connaît une accélération sans précédent depuis 2022 avec l'émergence des modèles génératifs 
+        comme ChatGPT, Copilot, Claude ou Gemini. Ces outils, désormais intégrés dans les environnements de développement, 
+        les consoles d'administration et les plateformes cloud, transforment profondément les métiers de l'informatique.
+    </p>
+
+    <p>
+        Si l'IA offre des gains de productivité indéniables — automatisation des tâches répétitives, assistance au débogage, 
+        génération de configurations — elle soulève également des interrogations majeures sur l'avenir des professionnels IT :
+    </p>
+
+    <ul>
+        <li><strong>Obsolescence des compétences :</strong> des tâches autrefois réservées aux experts (scripting, configuration réseau, 
+        monitoring) peuvent désormais être réalisées par des IA, questionnant la valeur de l'expertise humaine.</li>
+        <li><strong>Transformation des critères de recrutement :</strong> certaines entreprises évaluent désormais la capacité à utiliser 
+        l'IA plutôt que la maîtrise technique fondamentale.</li>
+        <li><strong>Nivellement des compétences :</strong> l'IA réduit l'écart entre juniors et seniors, remettant en cause les parcours 
+        de carrière traditionnels.</li>
+        <li><strong>Dépendance technologique :</strong> la sur-utilisation de l'IA crée une dépendance qui fragilise l'autonomie 
+        des professionnels.</li>
+        <li><strong>Enjeux de cybersécurité :</strong> l'IA générative est également exploitée par les cybercriminels, 
+        créant de nouvelles menaces pour les infrastructures.</li>
+    </ul>
+
+    <div class="info-box">
+        <strong>Pourquoi ce sujet ?</strong> En tant qu'étudiant en SISR orienté cybersécurité, l'IA impacte directement 
+        mon futur métier. Comprendre ses dérives me permet d'anticiper les transformations du marché et de me former 
+        aux compétences qui resteront indispensables malgré l'automatisation.
+    </div>
+</div>
+
+<!-- ===== 4. OUTILS DE VEILLE ===== -->
+<div class="content-page page-break">
+    <h1>4. Outils de veille utilisés</h1>
+    <p>
+        Pour réaliser ma veille technologique, j'ai adopté la <strong>méthode PULL</strong>, complétée par 
+        un suivi centralisé dans un tableur CSV.
+    </p>
+
+    <h2>La méthode PULL</h2>
+    <p>
+        La méthode <strong>PULL</strong> (en opposition à la méthode PUSH) consiste à aller <strong>chercher soi-même l'information</strong> 
+        de manière active et volontaire. Contrairement à la méthode PUSH où l'information arrive automatiquement 
+        (alertes, notifications), la méthode PULL repose sur une démarche proactive : c'est l'utilisateur qui décide 
+        quand et où chercher l'information.
+    </p>
+    <p>
+        Concrètement, je consulte régulièrement et manuellement les sites d'actualités spécialisés en informatique 
+        pour identifier les articles pertinents en lien avec mon sujet de veille. Cette méthode me permet de :
+    </p>
+    <ul>
+        <li><strong>Cibler précisément</strong> les informations en rapport avec ma problématique</li>
+        <li><strong>Évaluer la pertinence</strong> des articles au moment de la lecture, en effectuant un premier tri qualitatif</li>
+        <li><strong>Approfondir les sujets</strong> en naviguant librement entre les articles connexes</li>
+        <li><strong>Garder le contrôle</strong> sur le volume et la qualité des informations collectées</li>
+    </ul>
+
+    <div class="info-box">
+        <strong>Sites consultés régulièrement :</strong><br>
+        • <strong>01net</strong> (01net.com) — Actualités tech, IA et impact sur l'emploi<br>
+        • <strong>L'Usine Digitale</strong> (usine-digitale.fr) — Intelligence artificielle, automatisation, industrie tech<br>
+        • <strong>Le Monde Informatique</strong> (lemondeinformatique.fr) — Actualités IT françaises, transformation digitale<br>
+        • <strong>Silicon.fr</strong> — Emploi, formation, cybersécurité dans le secteur IT<br>
+        • <strong>Journal du Net</strong> (journaldunet.com) — Intelligence artificielle, stratégie numérique
+    </div>
+
+    <div class="tools-grid">
+        <div class="tool-card">
+            <h4>🔍 Méthode PULL</h4>
+            <p>Consultation manuelle et régulière des sites spécialisés (01net, L'Usine Digitale, Le Monde Informatique, Silicon.fr, Journal du Net). 
+            Recherche active d'articles en lien avec l'IA et ses impacts sur les métiers IT.</p>
+        </div>
+
+        <div class="tool-card">
+            <h4>📊 Tableur CSV</h4>
+            <p>Centralisation de tous les articles dans un fichier CSV structuré avec quatre colonnes : date, titre, mots-clés et lien. 
+            Ce fichier permet un suivi chronologique et facilite l'analyse des tendances.</p>
+        </div>
+    </div>
+
+    <h2>Fréquence de veille</h2>
+    <p>
+        Ma veille est réalisée <strong>tous les soirs</strong>. Je consulte les sites spécialisés 
+        pour repérer les articles pertinents, que j'ajoute ensuite au fichier CSV 
+        avec leurs métadonnées (date, mots-clés). J'ai commencé ma veille en <strong>décembre 2025</strong> et 
+        au total, <strong>40 articles</strong> ont été collectés à ce jour.
+    </p>
+</div>
+
+<!-- ===== 5. TABLEAU RÉCAPITULATIF ===== -->
+<div class="content-page page-break">
+    <h1>5. Tableau récapitulatif des articles</h1>
+    <p>Voici l'ensemble des articles collectés au cours de ma veille technologique, classés par ordre chronologique :</p>
+
+    <table class="articles-table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Titre</th>
+                <th>Mots-clés</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>24/11/2023</td>
+                <td>Salariés d'Onclusive remplacés par l'IA : un plan social emblématique</td>
+                <td>IA, licenciements, remplacement</td>
+            </tr>
+            <tr>
+                <td>23/04/2024</td>
+                <td>Copilot et Gemini : les assistants IA menacent-ils les développeurs juniors ?</td>
+                <td>Copilot, IA, développeurs, juniors</td>
+            </tr>
+            <tr>
+                <td>24/04/2024</td>
+                <td>IA et emploi : Goldman Sachs prédit la transformation de 300 millions de postes</td>
+                <td>IA, emploi, Goldman Sachs, automatisation</td>
+            </tr>
+            <tr>
+                <td>04/02/2025</td>
+                <td>DeepSeek fait trembler la Silicon Valley : l'IA low-cost menace les emplois tech</td>
+                <td>DeepSeek, IA, emplois tech, Silicon Valley</td>
+            </tr>
+            <tr>
+                <td>28/02/2025</td>
+                <td>GitHub Copilot écrit 61 % du code : quel avenir pour les développeurs ?</td>
+                <td>GitHub Copilot, IA, développeurs, code</td>
+            </tr>
+            <tr>
+                <td>25/03/2025</td>
+                <td>Les agents IA de Microsoft automatisent le support IT en entreprise</td>
+                <td>Microsoft, agents IA, support IT</td>
+            </tr>
+            <tr>
+                <td>26/03/2025</td>
+                <td>L'IA remplace déjà des salariés dans les centres d'appels français</td>
+                <td>IA, centres d'appels, emplois, France</td>
+            </tr>
+            <tr>
+                <td>09/06/2025</td>
+                <td>Le FMI alerte : l'IA pourrait menacer 40 % des emplois mondiaux</td>
+                <td>FMI, IA, emplois, menace mondiale</td>
+            </tr>
+            <tr>
+                <td>13/06/2025</td>
+                <td>Les développeurs web face à l'IA : s'adapter ou disparaître</td>
+                <td>IA, développeurs web, adaptation</td>
+            </tr>
+            <tr>
+                <td>13/06/2025</td>
+                <td>Canva impose le vibe coding pour le recrutement des développeurs</td>
+                <td>recrutement, IA, vibe coding, dépendance IA</td>
+            </tr>
+            <tr>
+                <td>13/06/2025</td>
+                <td>Amazon automatise ses entrepôts : des milliers de postes remplacés par l'IA</td>
+                <td>Amazon, IA, robots, entrepôts, emplois</td>
+            </tr>
+            <tr>
+                <td>16/06/2025</td>
+                <td>Devin, le premier développeur IA autonome, relance le débat sur l'avenir du métier</td>
+                <td>Devin, IA autonome, développeur</td>
+            </tr>
+            <tr>
+                <td>27/06/2025</td>
+                <td>Klarna supprime 700 postes grâce à l'IA : un modèle pour la tech ?</td>
+                <td>Klarna, IA, licenciements, automatisation</td>
+            </tr>
+            <tr>
+                <td>03/07/2025</td>
+                <td>GPT-5 promet de remplacer un employé de bureau : jusqu'où ira l'IA ?</td>
+                <td>GPT-5, OpenAI, employé, remplacement</td>
+            </tr>
+            <tr>
+                <td>04/07/2025</td>
+                <td>McKinsey : 12 millions d'Américains devront changer de métier à cause de l'IA</td>
+                <td>McKinsey, IA, métiers, reconversion</td>
+            </tr>
+            <tr>
+                <td>01/08/2025</td>
+                <td>Chez les développeurs, la séniorité joue peu sur l'usage de l'IA</td>
+                <td>séniorité, développeurs, IA, compétences</td>
+            </tr>
+            <tr>
+                <td>23/10/2025</td>
+                <td>Le Cigref sort le Chief Digital Officer de sa nomenclature RH</td>
+                <td>Cigref, CDO, métiers SI, obsolescence</td>
+            </tr>
+            <tr>
+                <td>07/11/2025</td>
+                <td>L'IA supprime plus d'emplois qu'elle n'en crée dans le secteur tech selon l'OCDE</td>
+                <td>IA, emplois tech, suppressions, OCDE</td>
+            </tr>
+            <tr>
+                <td>03/12/2025</td>
+                <td>Les agents IA autonomes arrivent en entreprise : menace pour les salariés IT</td>
+                <td>agents IA, autonomes, salariés IT</td>
+            </tr>
+            <tr>
+                <td>18/12/2025</td>
+                <td>Anthropic lance Computer Use : l'IA qui contrôle un PC comme un humain</td>
+                <td>Claude, Anthropic, Computer Use, IA autonome</td>
+            </tr>
+            <tr>
+                <td>21/01/2026</td>
+                <td>IA : vers l'obsolescence des métiers de l'informatique ?</td>
+                <td>IA, obsolescence, métiers IT, automatisation</td>
+            </tr>
+            <tr>
+                <td>30/01/2026</td>
+                <td>Anthropic : l'IA pourrait provoquer une « récession des cols blancs »</td>
+                <td>Anthropic, IA, cols blancs, récession</td>
+            </tr>
+            <tr>
+                <td>01/02/2026</td>
+                <td>Les entreprises françaises remplacent déjà des postes IT par des agents IA</td>
+                <td>entreprises, France, agents IA, postes IT</td>
+            </tr>
+            <tr>
+                <td>02/02/2026</td>
+                <td>Les administrateurs systèmes voient leur rôle se réduire face à l'IA</td>
+                <td>administrateurs systèmes, IA, réduction</td>
+            </tr>
+            <tr>
+                <td>03/02/2026</td>
+                <td>L'IA générative rend les grilles salariales obsolètes dans la tech</td>
+                <td>IA, grilles salariales, tech, obsolescence</td>
+            </tr>
+            <tr>
+                <td>04/02/2026</td>
+                <td>Chômage massif et IA : un rapport choc sème la panique sur les marchés</td>
+                <td>IA, chômage, licenciements, marchés</td>
+            </tr>
+            <tr>
+                <td>05/02/2026</td>
+                <td>Burger King installe une IA pour surveiller ses employés</td>
+                <td>Burger King, IA, surveillance, employés</td>
+            </tr>
+            <tr>
+                <td>06/02/2026</td>
+                <td>Avec Claude Opus 4.6, Anthropic cible les cols blancs</td>
+                <td>Claude, Anthropic, automatisation cognitive</td>
+            </tr>
+            <tr>
+                <td>07/02/2026</td>
+                <td>Une experte Meta perd le contrôle de son IA autonome : les risques sans supervision</td>
+                <td>IA autonome, Meta, contrôle, risques</td>
+            </tr>
+            <tr>
+                <td>08/02/2026</td>
+                <td>Le cofondateur de Twitter licencie la moitié de ses employés à cause de l'IA</td>
+                <td>Twitter, IA, licenciements, employés</td>
+            </tr>
+            <tr>
+                <td>09/02/2026</td>
+                <td>L'IA générative : entre opportunités et dérives</td>
+                <td>IA générative, chômage, dépendance, opacité</td>
+            </tr>
+            <tr>
+                <td>16/02/2026</td>
+                <td>Google automatise la révision de code dans Conductor</td>
+                <td>Agent IA, automatisation, code, développeurs</td>
+            </tr>
+            <tr>
+                <td>19/02/2026</td>
+                <td>Anthropic dévoile Claude Sonnet 4.6</td>
+                <td>Anthropic, Claude, agent IA, codage automatisé</td>
+            </tr>
+            <tr>
+                <td>24/02/2026</td>
+                <td>Anthropic chahute les fournisseurs IT en ciblant Cobol et la sécurité</td>
+                <td>Claude Code, IA autonome, fournisseurs IT</td>
+            </tr>
+            <tr>
+                <td>02/03/2026</td>
+                <td>IA : des salariés plus rapides, des organisations encore immobiles</td>
+                <td>IA, productivité, salariés, transformation</td>
+            </tr>
+            <tr>
+                <td>03/03/2026</td>
+                <td>Le syndrome de l'imposteur gagne les salariés utilisant l'IA</td>
+                <td>IA, salariés, identité professionnelle</td>
+            </tr>
+            <tr>
+                <td>05/03/2026</td>
+                <td>Claude Opus 4.6 a un QI de 155 : l'IA dépasse l'intelligence humaine</td>
+                <td>Claude, QI, dépassement humain, progression</td>
+            </tr>
+            <tr>
+                <td>06/03/2026</td>
+                <td>Oracle prêt à supprimer des milliers d'emplois à cause de l'IA</td>
+                <td>Oracle, licenciements, IA, emplois IT</td>
+            </tr>
+            <tr>
+                <td>06/03/2026</td>
+                <td>L'IA détruit bien des emplois… mais pas pour les raisons que vous croyez</td>
+                <td>IA, destruction emplois, licenciements tech</td>
+            </tr>
+            <tr>
+                <td>08/03/2026</td>
+                <td>L'ère agentique : quand l'IA devient une capacité opérationnelle</td>
+                <td>Agents IA, automatisation, remplacement</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ===== 6. ANALYSE DES ARTICLES ===== -->
+<div class="content-page page-break">
+    <h1>6. Analyse des articles sélectionnés</h1>
+    <p>
+        Parmi les articles collectés, j'ai sélectionné les cinq articles les plus pertinents et représentatifs 
+        de ma problématique de veille. Chacun illustre une facette différente de l'impact de l'IA sur les métiers IT.
+    </p>
+
+    <!-- ARTICLE 1 -->
+    <div class="article-analysis no-break">
+        <div class="article-meta">
+            <span class="date">13 Juin 2025</span>
+            <span class="source">Silicon.fr</span>
+        </div>
+        <h3>Canva impose le vibe coding pour le recrutement des développeurs</h3>
+        <p>
+            L'entreprise Canva a instauré une nouvelle méthode de recrutement appelée « vibe coding », 
+            exigeant des candidats qu'ils codent en collaboration avec des assistants IA plutôt que de démontrer 
+            leurs compétences techniques pures. Cette approche marque un tournant majeur dans les critères d'embauche 
+            du secteur IT : la capacité à piloter une IA devient plus valorisée que la maîtrise technique fondamentale.
+        </p>
+        <div class="keywords">
+            <span>recrutement</span>
+            <span>IA</span>
+            <span>vibe coding</span>
+            <span>développeurs</span>
+            <span>dépendance IA</span>
+        </div>
+        <div class="key-points">
+            <h4>Points clés :</h4>
+            <ul>
+                <li>Recrutement basé sur l'utilisation d'IA plutôt que sur les compétences techniques</li>
+                <li>Questionnement sur la valeur de la maîtrise technique fondamentale</li>
+                <li>Dépendance totale aux outils IA dans le processus de développement</li>
+                <li>Évolution inquiétante des critères d'embauche dans le secteur IT</li>
+            </ul>
+        </div>
+        <div class="key-points">
+            <h4>Mon analyse :</h4>
+            <p>
+                Cette initiative de Canva illustre une dérive préoccupante : si les entreprises recrutent sur la capacité 
+                à utiliser l'IA plutôt que sur la compréhension profonde du code, on risque de former une génération 
+                de développeurs incapables de résoudre des problèmes sans assistance artificielle. Pour un professionnel SISR, 
+                cela soulève la question : faut-il se former à « piloter l'IA » au détriment de la compréhension fondamentale 
+                des systèmes et des réseaux ?
+            </p>
+        </div>
+        <a href="https://www.silicon.fr/Thematique/emploi-formation-1373/Breves/canva-impose-vibe-coding-recrutement-developpeurs-482553.htm" class="article-link">🔗 Lire l'article complet →</a>
+    </div>
+
+    <!-- ARTICLE 2 -->
+    <div class="article-analysis no-break">
+        <div class="article-meta">
+            <span class="date">1 Août 2025</span>
+            <span class="source">Silicon.fr</span>
+        </div>
+        <h3>Chez les développeurs, la séniorité joue peu sur l'usage et la perception de l'IA</h3>
+        <p>
+            Une étude révèle que l'IA nivelle les compétences entre développeurs juniors et seniors. 
+            Les assistants IA compensent le manque d'expérience des juniors, réduisant l'écart de performance 
+            avec les profils expérimentés. Cette tendance remet en cause la valeur de l'expérience professionnelle 
+            et menace les grilles salariales traditionnelles du secteur.
+        </p>
+        <div class="keywords">
+            <span>séniorité</span>
+            <span>développeurs</span>
+            <span>IA</span>
+            <span>compétences</span>
+            <span>grilles salariales</span>
+        </div>
+        <div class="key-points">
+            <h4>Points clés :</h4>
+            <ul>
+                <li>L'IA réduit l'écart de compétences entre profils juniors et seniors</li>
+                <li>Dévalorisation de l'expérience professionnelle accumulée</li>
+                <li>Menace sur les grilles salariales des experts</li>
+                <li>Perte de reconnaissance de l'expertise technique</li>
+            </ul>
+        </div>
+        <div class="key-points">
+            <h4>Mon analyse :</h4>
+            <p>
+                Ce nivellement pose un problème fondamental pour les parcours de carrière en informatique. 
+                Si l'expérience n'est plus un facteur différenciant, comment justifier les progressions salariales 
+                et les responsabilités croissantes ? En tant que futur professionnel, je dois identifier les compétences 
+                qui ne peuvent pas être nivelées par l'IA : l'architecture de systèmes complexes, la gestion de crise, 
+                la vision stratégique de la sécurité informatique.
+            </p>
+        </div>
+        <a href="https://www.silicon.fr/Thematique/emploi-formation-1373/Breves/developpeurs-seniorite-joue-usage-perception-ia-484412.htm" class="article-link">🔗 Lire l'article complet →</a>
+    </div>
+</div>
+
+<div class="content-page page-break">
+    <!-- ARTICLE 3 -->
+    <div class="article-analysis no-break">
+        <div class="article-meta">
+            <span class="date">23 Octobre 2025</span>
+            <span class="source">Silicon.fr</span>
+        </div>
+        <h3>Le Cigref sort le Chief Digital Officer de sa nomenclature RH</h3>
+        <p>
+            Le Cigref, réseau de grandes entreprises françaises, a publié sa nouvelle nomenclature des métiers du SI 
+            en excluant le poste de Chief Digital Officer (CDO). Cette disparition est un signal fort : 
+            le numérique est devenu tellement transverse qu'un poste dédié n'a plus de raison d'être. 
+            Cela illustre comment l'IA et la digitalisation transforment et font disparaître des fonctions 
+            autrefois considérées comme stratégiques.
+        </p>
+        <div class="keywords">
+            <span>Cigref</span>
+            <span>CDO</span>
+            <span>métiers SI</span>
+            <span>nomenclature RH</span>
+            <span>obsolescence</span>
+        </div>
+        <div class="key-points">
+            <h4>Points clés :</h4>
+            <ul>
+                <li>Disparition du CDO : premier signe concret de l'obsolescence de métiers digitaux</li>
+                <li>Le numérique devient une compétence transverse intégrée à tous les postes</li>
+                <li>Transformation profonde de la nomenclature des métiers IT</li>
+                <li>Questionnement sur la pérennité des métiers spécialisés</li>
+            </ul>
+        </div>
+        <div class="key-points">
+            <h4>Mon analyse :</h4>
+            <p>
+                La suppression du CDO de la nomenclature Cigref est un signal d'alerte pour tous les métiers IT spécialisés. 
+                Si un poste de direction numérique peut devenir obsolète, c'est que l'automatisation et l'IA intègrent 
+                les compétences numériques dans l'ensemble des fonctions de l'entreprise. Pour un professionnel SISR, 
+                cela signifie qu'il faut développer des compétences hybrides, alliant technique et vision business, 
+                pour rester indispensable.
+            </p>
+        </div>
+        <a href="https://www.silicon.fr/emploi-formation-1373/cigref-nomenclature-metiers-si-2025-224016" class="article-link">🔗 Lire l'article complet →</a>
+    </div>
+
+    <!-- ARTICLE 4 -->
+    <div class="article-analysis no-break">
+        <div class="article-meta">
+            <span class="date">21 Janvier 2026</span>
+            <span class="source">Silicon.fr</span>
+        </div>
+        <h3>IA : vers l'obsolescence des métiers de l'informatique ?</h3>
+        <p>
+            Cette tribune analyse frontalement la menace que l'IA fait peser sur les métiers IT traditionnels. 
+            Développeurs, administrateurs systèmes, techniciens réseau : toutes ces fonctions voient leurs tâches 
+            automatisées par des outils d'IA de plus en plus performants. L'article évoque les risques 
+            de déqualification massive et la disparition programmée de nombreux postes.
+        </p>
+        <div class="keywords">
+            <span>IA</span>
+            <span>obsolescence</span>
+            <span>métiers IT</span>
+            <span>automatisation</span>
+            <span>déqualification</span>
+        </div>
+        <div class="key-points">
+            <h4>Points clés :</h4>
+            <ul>
+                <li>Menace directe sur les emplois IT : développement, administration système, réseau</li>
+                <li>Automatisation massive des tâches techniques courantes</li>
+                <li>Risque de déqualification des professionnels expérimentés</li>
+                <li>Perspectives incertaines pour les nouveaux entrants dans le secteur</li>
+            </ul>
+        </div>
+        <div class="key-points">
+            <h4>Mon analyse :</h4>
+            <p>
+                Cet article touche directement mon parcours en SISR. L'administration système, la configuration réseau, 
+                le monitoring — des compétences que j'acquiers en formation — sont précisément les domaines ciblés 
+                par l'automatisation IA. Cependant, je reste convaincu que l'expertise humaine est indispensable 
+                pour la prise de décision en situation de crise, l'audit de sécurité et la conception d'architectures complexes. 
+                Le défi est de se positionner sur ces créneaux à forte valeur ajoutée.
+            </p>
+        </div>
+        <a href="https://www.silicon.fr/emploi-formation-1373/ia-vers-lobsolescence-des-metiers-de-linformatique-225299" class="article-link">🔗 Lire l'article complet →</a>
+    </div>
+</div>
+
+<div class="content-page page-break">
+    <!-- ARTICLE 5 -->
+    <div class="article-analysis no-break">
+        <div class="article-meta">
+            <span class="date">9 Février 2026</span>
+            <span class="source">Journal du Net</span>
+        </div>
+        <h3>L'IA générative : entre opportunités et dérives</h3>
+        <p>
+            Cette analyse expose les dérives inquiétantes de l'IA générative dans le monde professionnel. 
+            Au-delà des promesses d'efficacité, l'article révèle comment l'IA générative contribue à la perte 
+            de compétences fondamentales, au chômage technologique et à une dépendance dangereuse envers 
+            des systèmes opaques et incontrôlables. Le risque de déqualification massive des professionnels IT est réel.
+        </p>
+        <div class="keywords">
+            <span>IA générative</span>
+            <span>dérives</span>
+            <span>chômage technologique</span>
+            <span>compétences</span>
+            <span>dépendance</span>
+        </div>
+        <div class="key-points">
+            <h4>Points clés :</h4>
+            <ul>
+                <li>Perte progressive des compétences fondamentales en IT</li>
+                <li>Chômage technologique et suppression de postes</li>
+                <li>Dépendance dangereuse aux systèmes d'IA</li>
+                <li>Opacité des décisions et perte de contrôle technique</li>
+            </ul>
+        </div>
+        <div class="key-points">
+            <h4>Mon analyse :</h4>
+            <p>
+                Cet article illustre parfaitement les dérives que j'étudie dans ma veille. L'IA générative 
+                ne se contente pas de transformer les métiers : elle risque de créer une génération de professionnels 
+                incapables de travailler sans elle. La perte de compétences fondamentales est un danger majeur 
+                pour notre secteur. Il est essentiel de maintenir une expertise technique solide et de ne pas 
+                se reposer uniquement sur les outils d'IA.
+            </p>
+        </div>
+        <a href="https://www.journaldunet.com/intelligence-artificielle/1547801-l-ia-generative-entre-opportunites-et-derives/" class="article-link">🔗 Lire l'article complet →</a>
+    </div>
+</div>
+
+<!-- ===== 7. SYNTHÈSE ET CONCLUSION ===== -->
+<div class="content-page page-break">
+    <h1>7. Synthèse et conclusion</h1>
+
+    <div class="synthesis-box">
+        <h2>Ce que révèle ma veille</h2>
+        <p>
+            Au fil de ma veille sur l'impact de l'IA sur les métiers de l'informatique, 
+            plusieurs tendances majeures se dégagent :
+        </p>
+        <ul>
+            <li><strong>L'IA transforme les critères de recrutement</strong> — Les entreprises privilégient de plus en plus 
+                la capacité à utiliser l'IA au détriment des compétences fondamentales, comme l'illustre le cas Canva.</li>
+            <li><strong>L'expérience professionnelle perd de sa valeur</strong> — Le nivellement des compétences 
+                junior/senior par l'IA remet en cause les parcours de carrière traditionnels.</li>
+            <li><strong>Des métiers entiers sont menacés d'obsolescence</strong> — La disparition du CDO 
+                de la nomenclature Cigref et les alertes sur l'automatisation des postes IT sont des signaux forts.</li>
+            <li><strong>Des suppressions massives d'emplois sont déjà en cours</strong> — D'Onclusive à Klarna, 
+                d'Amazon à Oracle, les licenciements liés à l'IA se multiplient dans tous les secteurs.</li>
+            <li><strong>Les études internationales confirment la tendance</strong> — FMI (40 % des emplois menacés), 
+                McKinsey (12 millions de reconversions), OCDE : les institutions alertent sur l'ampleur du phénomène.</li>
+        </ul>
+    </div>
+
+    <h2>Ma réflexion personnelle</h2>
+    <p>
+        Cette veille m'a permis de prendre conscience des mutations profondes qui attendent le secteur informatique. 
+        En tant qu'étudiant en BTS SIO SISR, je mesure l'importance de ne pas se reposer uniquement sur des compétences 
+        techniques pouvant être automatisées. L'avenir appartient aux professionnels capables de :
+    </p>
+    <ul>
+        <li><strong>Comprendre les systèmes en profondeur</strong> — au-delà de ce que l'IA peut exécuter</li>
+        <li><strong>Maîtriser la cybersécurité</strong> — un domaine où l'expertise humaine reste critique</li>
+        <li><strong>Allier compétences techniques et vision stratégique</strong> — pour apporter une valeur ajoutée 
+            que l'IA ne peut pas reproduire</li>
+        <li><strong>Utiliser l'IA comme un outil</strong> — sans en devenir dépendant</li>
+    </ul>
+    <p>
+        Mon orientation vers la cybersécurité prend tout son sens dans ce contexte : c'est un domaine où 
+        la complexité des menaces, la nécessité de jugement humain et la dimension éthique rendent l'expertise 
+        humaine indispensable, même à l'ère de l'IA.
+    </p>
+</div>
+
+<!-- ===== 8. SOURCES ===== -->
+<div class="content-page page-break">
+    <h1>8. Sources</h1>
+    <p>Ensemble des articles collectés et consultés dans le cadre de cette veille technologique :</p>
+
+    <ol class="sources-list" style="list-style: decimal; padding-left: 20px;">
+        <li><a href="https://www.01net.com/actualites/sursis-pour-les-salaries-donclusive-remplaces-par-lintelligence-artificielle.html">Salariés d'Onclusive remplacés par l'IA : un plan social emblématique</a> — 01net, 24/11/2023</li>
+        <li><a href="https://www.01net.com/actualites/copilot-gemini-claude-assistants-ia-menacent-developpeurs-juniors.html">Copilot et Gemini : les assistants IA menacent-ils les développeurs juniors ?</a> — 01net, 23/04/2024</li>
+        <li><a href="https://www.usine-digitale.fr/intelligence-artificielle/ia-generative/ia-et-emploi-goldman-sachs-predit-la-transformation-de-300-millions-de-postes.html">IA et emploi : Goldman Sachs prédit la transformation de 300 millions de postes</a> — L'Usine Digitale, 24/04/2024</li>
+        <li><a href="https://www.usine-digitale.fr/intelligence-artificielle/deepseek/deepseek-fait-trembler-silicon-valley-ia-low-cost-menace-emplois-tech.html">DeepSeek fait trembler la Silicon Valley : l'IA low-cost menace les emplois tech</a> — L'Usine Digitale, 04/02/2025</li>
+        <li><a href="https://www.01net.com/actualites/github-copilot-ecrit-61-pourcent-code-avenir-developpeurs.html">GitHub Copilot écrit 61 % du code : quel avenir pour les développeurs ?</a> — 01net, 28/02/2025</li>
+        <li><a href="https://www.01net.com/actualites/agents-ia-microsoft-automatisent-taches-support-it-entreprise.html">Les agents IA de Microsoft automatisent le support IT en entreprise</a> — 01net, 25/03/2025</li>
+        <li><a href="https://www.usine-digitale.fr/intelligence-artificielle/ia-generative/ia-remplace-salaries-centres-appels-francais.html">L'IA remplace déjà des salariés dans les centres d'appels français</a> — L'Usine Digitale, 26/03/2025</li>
+        <li><a href="https://www.usine-digitale.fr/intelligence-artificielle/ia-generative/fmi-alerte-ia-menace-40-pourcent-emplois-mondiaux.html">Le FMI alerte : l'IA pourrait menacer 40 % des emplois mondiaux</a> — L'Usine Digitale, 09/06/2025</li>
+        <li><a href="https://www.01net.com/actualites/developpeurs-web-face-ia-adapter-ou-disparaitre.html">Les développeurs web face à l'IA : s'adapter ou disparaître</a> — 01net, 13/06/2025</li>
+        <li><a href="https://www.silicon.fr/Thematique/emploi-formation-1373/Breves/canva-impose-vibe-coding-recrutement-developpeurs-482553.htm">Canva impose le vibe coding pour le recrutement des développeurs</a> — Silicon.fr, 13/06/2025</li>
+        <li><a href="https://www.usine-digitale.fr/intelligence-artificielle/robotique/amazon-automatise-entrepots-milliers-postes-supprimes-robots-ia.html">Amazon automatise ses entrepôts : des milliers de postes remplacés par l'IA</a> — L'Usine Digitale, 13/06/2025</li>
+        <li><a href="https://www.01net.com/actualites/devin-premier-developpeur-ia-autonome-menace-ou-outil.html">Devin, le premier développeur IA autonome, relance le débat sur l'avenir du métier</a> — 01net, 16/06/2025</li>
+        <li><a href="https://www.usine-digitale.fr/intelligence-artificielle/ia-generative/klarna-supprime-700-postes-supplementaires-ia-service-client.html">Klarna supprime 700 postes grâce à l'IA : un modèle pour la tech ?</a> — L'Usine Digitale, 27/06/2025</li>
+        <li><a href="https://www.01net.com/actualites/openai-gpt-5-assistant-capable-remplacer-employe-bureau.html">GPT-5 promet de remplacer un employé de bureau : jusqu'où ira l'IA ?</a> — 01net, 03/07/2025</li>
+        <li><a href="https://www.usine-digitale.fr/intelligence-artificielle/ia-generative/etude-mckinsey-12-millions-americains-changer-metier-ia.html">McKinsey : 12 millions d'Américains devront changer de métier à cause de l'IA</a> — L'Usine Digitale, 04/07/2025</li>
+        <li><a href="https://www.silicon.fr/Thematique/emploi-formation-1373/Breves/developpeurs-seniorite-joue-usage-perception-ia-484412.htm">Chez les développeurs, la séniorité joue peu sur l'usage et la perception de l'IA</a> — Silicon.fr, 01/08/2025</li>
+        <li><a href="https://www.silicon.fr/emploi-formation-1373/cigref-nomenclature-metiers-si-2025-224016">Le Cigref sort le Chief Digital Officer de sa nomenclature RH</a> — Silicon.fr, 23/10/2025</li>
+        <li><a href="https://www.01net.com/actualites/ia-supprime-plus-emplois-cree-secteur-tech-ocde.html">L'IA supprime plus d'emplois qu'elle n'en crée dans le secteur tech selon l'OCDE</a> — 01net, 07/11/2025</li>
+        <li><a href="https://www.usine-digitale.fr/intelligence-artificielle/ia-generative/agents-ia-autonomes-entreprise-menace-salaries.html">Les agents IA autonomes arrivent en entreprise : menace pour les salariés IT</a> — L'Usine Digitale, 03/12/2025</li>
+        <li><a href="https://www.01net.com/actualites/anthropic-claude-computer-use-ia-controle-pc-comme-humain.html">Anthropic lance Computer Use : l'IA qui contrôle un PC comme un humain</a> — 01net, 18/12/2025</li>
+        <li><a href="https://www.silicon.fr/emploi-formation-1373/ia-vers-lobsolescence-des-metiers-de-linformatique-225299">IA : vers l'obsolescence des métiers de l'informatique ?</a> — Silicon.fr, 21/01/2026</li>
+        <li><a href="https://www.usine-digitale.fr/intelligence-artificielle/anthropic/anthropic-ladmet-les-jeunes-qui-sappuient-fortement-sur-lia-risquent-de-compromettre-leur-acquisition-de-competences-professionnelles.html">Anthropic : l'IA pourrait provoquer une « récession des cols blancs »</a> — L'Usine Digitale, 30/01/2026</li>
+        <li><a href="https://www.01net.com/actualites/entreprises-francaises-remplacent-postes-it-agents-ia.html">Les entreprises françaises remplacent déjà des postes IT par des agents IA</a> — 01net, 01/02/2026</li>
+        <li><a href="https://www.usine-digitale.fr/intelligence-artificielle/ia-generative/administrateurs-systemes-role-reduit-face-ia.html">Les administrateurs systèmes voient leur rôle se réduire face à l'IA</a> — L'Usine Digitale, 02/02/2026</li>
+        <li><a href="https://www.01net.com/actualites/ia-generative-grilles-salariales-obsoletes-tech.html">L'IA générative rend les grilles salariales obsolètes dans la tech</a> — 01net, 03/02/2026</li>
+        <li><a href="https://www.01net.com/actualites/chomage-massif-licenciements-et-ia-un-rapport-choc-seme-la-panique-sur-les-marches-financiers.html">Chômage massif et IA : un rapport choc sème la panique sur les marchés</a> — 01net, 04/02/2026</li>
+        <li><a href="https://www.01net.com/actualites/burger-king-installe-une-ia-dans-loreille-de-ses-employes.html">Burger King installe une IA pour surveiller ses employés</a> — 01net, 05/02/2026</li>
+        <li><a href="https://www.journaldunet.com/intelligence-artificielle/1547785-avec-claude-opus-4-6-anthropic-cible-les-cols-blancs-et-fait-plaisir-aux-developpeurs/">Avec Claude Opus 4.6, Anthropic cible les cols blancs</a> — Journal du Net, 06/02/2026</li>
+        <li><a href="https://www.01net.com/actualites/courir-jusqua-mac-mini-experte-meta-perdu-controle-ia.html">Une experte Meta perd le contrôle de son IA autonome : les risques sans supervision</a> — 01net, 07/02/2026</li>
+        <li><a href="https://www.01net.com/actualites/le-cofondateur-de-twitter-vire-la-moitie-de-ses-employes-a-cause-de-lia-et-previent-que-les-autres-feront-pareil.html">Le cofondateur de Twitter licencie la moitié de ses employés à cause de l'IA</a> — 01net, 08/02/2026</li>
+        <li><a href="https://www.journaldunet.com/intelligence-artificielle/1547801-l-ia-generative-entre-opportunites-et-derives/">L'IA générative : entre opportunités et dérives</a> — Journal du Net, 09/02/2026</li>
+        <li><a href="https://www.lemondeinformatique.fr/actualites/lire-google-automatise-la-revision-de-code-dans-conductor-99363.html">Google automatise la révision de code dans Conductor</a> — Le Monde Informatique, 16/02/2026</li>
+        <li><a href="https://www.lemondeinformatique.fr/actualites/lire-anthropic-devoile-claude-sonnet-46-99398.html">Anthropic dévoile Claude Sonnet 4.6</a> — Le Monde Informatique, 19/02/2026</li>
+        <li><a href="https://www.lemondeinformatique.fr/actualites/lire-en-ciblant-cobol-et-la-securite-anthropic-chahute-les-fournisseurs-it-99444.html">En ciblant Cobol et la sécurité, Anthropic chahute les fournisseurs IT</a> — Le Monde Informatique, 24/02/2026</li>
+        <li><a href="https://www.journaldunet.com/intelligence-artificielle/1548509-ia-des-salaries-plus-rapides-des-organisations-encore-immobiles/">IA : des salariés plus rapides, des organisations encore immobiles</a> — Journal du Net, 02/03/2026</li>
+        <li><a href="https://www.lemondeinformatique.fr/actualites/lire-le-syndrome-de-l-imposteur-gagne-les-salaries-utilisant-l-ia-99513.html">Le syndrome de l'imposteur gagne les salariés utilisant l'IA</a> — Le Monde Informatique, 03/03/2026</li>
+        <li><a href="https://www.journaldunet.com/intelligence-artificielle/1548519-votre-enfant-a-un-qi-de-100-claude-opus-4-6-en-a-un-de-155-et-il-progresse-encore/">Claude Opus 4.6 a un QI de 155 : l'IA dépasse l'intelligence humaine</a> — Journal du Net, 05/03/2026</li>
+        <li><a href="https://www.lemondeinformatique.fr/actualites/lire-oracle-pret-a-supprimer-des-milliers-d-emplois-99560.html">Oracle prêt à supprimer des milliers d'emplois à cause de l'IA</a> — Le Monde Informatique, 06/03/2026</li>
+        <li><a href="https://www.journaldunet.com/intelligence-artificielle/1548539-l-ia-detruit-bien-des-emplois-mais-pas-pour-les-raisons-que-vous-croyez/">L'IA détruit bien des emplois… mais pas pour les raisons que vous croyez</a> — Journal du Net, 06/03/2026</li>
+        <li><a href="https://www.journaldunet.com/intelligence-artificielle/1548567-l-ere-agentique-quand-l-ia-devient-une-capacite-operationnelle/">L'ère agentique : quand l'IA devient une capacité opérationnelle</a> — Journal du Net, 08/03/2026</li>
+    </ol>
+</div>
+
+</body>
+</html>
